@@ -22,7 +22,7 @@ class BookRepository:
         book = cur.fetchone()
         cur.close()
         if book:
-            return Book(book[1], book[2]).to_dict()
+            return Book(book[0], book[1], book[2]).to_dict()
         return None
 
     def list(self):
@@ -30,6 +30,6 @@ class BookRepository:
         cur.execute("SELECT * FROM books")
         books = []
         for book in cur.fetchall():
-            books.append(Book(book[1], book[2]).to_dict())
+            books.append(Book(book[0], book[1], book[2]).to_dict())
         cur.close()
         return books

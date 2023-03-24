@@ -1,17 +1,6 @@
-import os
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from library import conn
 
-def get_migrations():
-    migrations_dir = os.path.join(os.getcwd(), '.')
-    migrations = []
-    for filename in os.listdir(migrations_dir):
-        if filename.endswith('.sql'):
-            migrations.append(filename)
-    migrations.sort()
-    return migrations
-
-
-def run_migrations(conn):
+def run_migrations():
     cur = conn.cursor()
 
     # Create the books table
