@@ -10,6 +10,9 @@ class BaseController:
     def list(self): 
         pass
 
+    def get_book_page(self, book_id, page_number, format='html'):
+        pass
+
     def send_response(self, response_data, status_code=200):
         self.request_handler.send_response(status_code)
         self.request_handler.send_header('Content-type', 'application/json')

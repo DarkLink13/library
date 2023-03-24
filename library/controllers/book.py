@@ -3,6 +3,8 @@ from library.controllers.base import BaseController
 from library.db import conn
 import json
 
+formats = { 'html': 'text/html' ,'text': 'text/plain' }
+
 class BookController(BaseController):
     def __init__(self, args):
         self.repository = BookRepository(conn)
@@ -21,14 +23,9 @@ class BookController(BaseController):
         if book == None:
             self.send_response({'error': 'Page not Found'}, 404)
             return
-        if format == 'html':
+        if format in formats:
             self.request_handler.send_response(200)
-            self.request_handler.send_header('Content-type', 'text/html')
-            self.request_handler.end_headers()
-            self.request_handler.wfile.write(json.dumps(book).encode("utf-8"))
-        elif format == 'text':
-            self.request_handler.send_response(200)
-            self.request_handler.send_header('Content-type', 'text/plain')
+            self.request_handler.send_header('Content-type', formats[format])
             self.request_handler.end_headers()
             self.request_handler.wfile.write(json.dumps(book).encode("utf-8"))
         else:

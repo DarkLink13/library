@@ -1,11 +1,10 @@
 from http.server import SimpleHTTPRequestHandler
-from library.controllers import BookController, PageController, BaseController
+from library.controllers import BookController, BaseController
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         self.controllers: dict[str, BaseController] = {
             'book': BookController(self),
-            'page': PageController(self),
         }
         super().__init__(*args, **kwargs)
 
